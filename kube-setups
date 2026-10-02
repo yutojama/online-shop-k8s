@@ -1,0 +1,44 @@
+step 1:
+minikube start
+mount volumes:
+minikube mount "C:\Softwares\projects\online-shop-backend\images:/mnt/portshop-images" -> shop images
+minikube mount "C:\Softwares\projects\db_volume:/mnt/portshop-database" -> db volumes
+
+!!! because of p9 file system used by minikube, now need to copy database and images into minikube!!!
+sudo tar -C /mnt/portshop-images -cf - . | sudo tar -C /var/lib/portshop-images -xf -
+sudo tar -C /mnt/portshop-database -cf - . | sudo tar -C /var/lib/portshop-database -xf -
+
+step 2:
+minikube addons enable ingress
+-- verify:
+kubectl get pods -n ingress-nginx
+
+
+step 3:
+--- if deployments reference locally built images:
+eval $(minikube docker-env)
+or
+minikube image load portshop/user-service:latest
+minikube image load portshop/shipping-service:latest
+minikube image load portshop/product-service:latest
+minikube image load portshop/payment-service:latest
+minikube image load portshop/order-service:latest
+minikube image load portshop/api-gateway:latest
+minikube image load portshop/frontend:latest
+
+
+step 4:
+kubectl kustomize overlays/local --> overview yamls to be deployed
+kubectl apply -k overlays/local
+
+
+ports:
+api-gateway           ClusterIP   10.97.253.119    <none>        4000/TCP   17m
+order-service         ClusterIP   10.100.117.150   <none>        4003/TCP   17m
+payment-service       ClusterIP   10.111.117.206   <none>        4004/TCP   17m
+product-service       ClusterIP   10.109.87.37     <none>        4001/TCP   17m
+shipping-service      ClusterIP   10.108.93.76     <none>        4005/TCP   17m
+user-service          ClusterIP   10.105.157.148   <none>        4002/TCP   17m
+
+
+

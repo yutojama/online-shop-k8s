@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: portshop-keycloak
+spec:
+  selector:
+    app: portshop-keycloak
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080

@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product-service-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: product-service
+  template:
+    metadata:
+      labels:
+        app: product-service
+    spec:
+      containers:
+        - name: product-service
+          image: portshop/product-service:latest
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: product-service-config
+          ports:  # only for documentation and visibility at kubectl describe
+            - containerPort: 4001
+          volumeMounts:
+            - name: product-images
+              mountPath: /app/images
+
+      volumes:
+        - name: product-images
+          persistentVolumeClaim:
+            claimName: product-images-pvc

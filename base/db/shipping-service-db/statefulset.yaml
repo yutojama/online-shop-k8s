@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: shipping-service-db-statefulset
+
+spec:
+  serviceName: shipping-service-db-statefulset
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shipping-service-db
+  template:
+    metadata:
+      labels:
+        app: shipping-service-db
+    spec:
+      containers:
+        - name: shipping-service-db
+          image: postgres:18.6
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: shipping-service-db-config
+          ports:  # only for documentation and visibility at kubectl describe
+            - containerPort: 5432
+          volumeMounts:
+            - name: shipping-service-db
+              mountPath: /var/lib/postgresql
+
+      volumes:
+        - name: shipping-service-db
+          persistentVolumeClaim:
+            claimName: shipping-service-db-pvc

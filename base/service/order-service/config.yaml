@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: order-service-config
+data:
+  KAFKA_SERVICE_URL: "portshop-kafka:9092"
+  KEYCLOAK_CLIENT_ID: "portshop-admin"
+  KEYCLOAK_REALM: "portshop-realm"
+  KEYCLOAK_SERVER_URL: "http://portshop-keycloak:8080"
+  PRODUCT_SERVICE_URL: "http://product-service:4001"
+  SPRING_DATASOURCE_PASSWORD: "password"
+  SPRING_DATASOURCE_URL: "jdbc:postgresql://order-service-db:5432/db"
+  SPRING_DATASOURCE_USERNAME: "admin_user"
+  SPRING_JPA_HIBERNATE_DDL_AUTO: "create"
+  SPRING_SQL_INIT_MODE: "never"
+  USER_SERVICE_URL: "http://user-service:4002"
+  
+  

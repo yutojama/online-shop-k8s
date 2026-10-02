@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: portshop-frontend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: portshop-frontend
+  template:
+    metadata:
+      labels:
+        app: portshop-frontend
+    spec:
+      containers:
+        - name: portshop-frontend
+          image: portshop/frontend:latest
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: portshop-frontend-config
+          ports:  # only for documentation and visibility at kubectl describe
+            - containerPort: 80

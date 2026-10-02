@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: portshop-keycloak-config
+data:
+  KC_BOOTSTRAP_ADMIN_PASSWORD: "password"
+  KC_BOOTSTRAP_ADMIN_USERNAME: "admin_user"
+  KC_DB: "postgres"
+  KC_DB_PASSWORD: "password"
+  KC_DB_URL: "jdbc:postgresql://keycloak-db:5432/keycloak"
+  KC_DB_USERNAME: "admin_user"
+  KC_HOSTNAME_STRICT: "false"
+  KC_HTTP_ENABLED: "true"
+  
+  

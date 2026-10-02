@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: portshop-kafka-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: portshop-kafka
+  template:
+    metadata:
+      labels:
+        app: portshop-kafka
+    spec:
+      containers:
+        - name: portshop-kafka
+          image: apache/kafka:4.3.1
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: portshop-kafka-config
+          ports:
+            - name: broker
+              containerPort: 9092
+            - name: controller
+              containerPort: 9093

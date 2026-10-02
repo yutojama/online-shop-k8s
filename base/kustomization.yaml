@@ -1,0 +1,23 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - service/api-gateway
+  - service/order-service
+  - service/payment-service
+  - service/product-service
+  - service/shipping-service
+  - service/user-service
+
+  - db/auth-token-db
+  - db/keycloak-db
+  - db/order-service-db
+  - db/payment-service-db
+  - db/product-service-db
+  - db/shipping-service-db
+  - db/user-service-db
+
+  - infrastructure/portshop-kafka
+  - infrastructure/portshop-keycloak
+
+  - frontend

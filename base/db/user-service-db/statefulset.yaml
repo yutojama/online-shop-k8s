@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: user-service-db-statefulset
+
+spec:
+  serviceName: user-service-db-statefulset
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-service-db
+  template:
+    metadata:
+      labels:
+        app: user-service-db
+    spec:
+      containers:
+        - name: user-service-db
+          image: postgres:18.6
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: user-service-db-config
+          ports:  # only for documentation and visibility at kubectl describe
+            - containerPort: 5432
+          volumeMounts:
+            - name: user-service-db
+              mountPath: /var/lib/postgresql
+
+      volumes:
+        - name: user-service-db
+          persistentVolumeClaim:
+            claimName: user-service-db-pvc

@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: portshop-keycloak-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: portshop-keycloak
+  template:
+    metadata:
+      labels:
+        app: portshop-keycloak
+    spec:
+      containers:
+        - name: portshop-keycloak
+          image: keycloak/keycloak:26.7
+          args:
+            - start
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: portshop-keycloak-config
+          ports:  # only for documentation and visibility at kubectl describe
+            - containerPort: 8080

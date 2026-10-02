@@ -1,0 +1,29 @@
+#apiVersion: networking.k8s.io/v1
+#kind: Ingress
+#metadata:
+#  name: portshop
+#  annotations:
+#    nginx.ingress.kubernetes.io/use-regex: "true"
+#    nginx.ingress.kubernetes.io/rewrite-target: /$2
+#
+#spec:
+#  ingressClassName: nginx
+#  rules:
+##    - host: online-shop.local
+#    - http:
+#        paths:
+#          - path: /be(/|$)(.*)
+#            pathType: ImplementationSpecific
+#            backend:
+#              service:
+#                name: api-gateway
+#                port:
+#                  number: 4000
+#
+#          - path: /(.*)
+#            pathType: ImplementationSpecific
+#            backend:
+#              service:
+#                name: portshop-frontend
+#                port:
+#                  number: 80

@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: auth-token-db-pv
+spec:
+  capacity:
+    storage: 100Mi
+  accessModes:
+    - ReadWriteMany
+  storageClassName: manual
+  persistentVolumeReclaimPolicy: Retain
+
+  hostPath:
+#    path: /mnt/portshop-database/auth-token-db --> this should have worked with mounting windows dir. But it fails for 9p file system
+    path: /var/lib/portshop-database/auth-token-db
+    type: Directory

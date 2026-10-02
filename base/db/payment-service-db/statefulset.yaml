@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: payment-service-db-statefulset
+
+spec:
+  serviceName: payment-service-db-statefulset
+  replicas: 1
+  selector:
+    matchLabels:
+      app: payment-service-db
+  template:
+    metadata:
+      labels:
+        app: payment-service-db
+    spec:
+      containers:
+        - name: payment-service-db
+          image: postgres:18.6
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: payment-service-db-config
+          ports:  # only for documentation and visibility at kubectl describe
+            - containerPort: 5432
+          volumeMounts:
+            - name: payment-service-db
+              mountPath: /var/lib/postgresql
+
+      volumes:
+        - name: payment-service-db
+          persistentVolumeClaim:
+            claimName: payment-service-db-pvc
