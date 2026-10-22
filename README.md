@@ -110,28 +110,56 @@ online-shop-k8s/
 ├── base/
 │   ├── db/
 │   │   ├── keycloak-db/
-│   │   ├── order-service-db/
-│   │   ├── payment-service-db/
-│   │   ├── product-service-db/
-│   │   ├── shipping-service-db/
-│   │   └── user-service-db/
+│   │   │   ├── kustomization.yaml
+│   │   │   ├── config.yaml
+│   │   │   ├── pv.yaml
+│   │   │   ├── pvc.yaml
+│   │   │   ├── service.yaml
+│   │   │   └── statefulset.yaml
+│   │   │
+│   │   ├── order-service-db/...
+│   │   ├── payment-service-db/...
+│   │   ├── product-service-db/...
+│   │   ├── shipping-service-db/...
+│   │   └── user-service-db/...
+│   │
 │   ├── frontend/
 │   │   ├── config.yaml
 │   │   ├── deployment.yaml
 │   │   ├── kustomization.yaml
 │   │   └── service.yaml
+│   │
 │   ├── infrastructure/
 │   │   ├── portshop-kafka/
-│   │   └── portshop-keycloak/
+│   │   │   ├── kustomization.yaml
+│   │   │   ├── config.yaml
+│   │   │   ├── service.yaml
+│   │   │   └── statefulset.yaml
+│   │   │
+│   │   └── portshop-keycloak/...
+│   │
 │   ├── service/
 │   │   ├── api-gateway/
-│   │   ├── order-service/
-│   │   ├── payment-service/
-│   │   ├── product-service/
-│   │   ├── shipping-service/
-│   │   └── user-service/
+│   │   │   ├── kustomization.yaml
+│   │   │   ├── config.yaml
+│   │   │   ├── service.yaml
+│   │   │   └── statefulset.yaml
+│   │   │
+│   │   ├── order-service/...
+│   │   ├── payment-service/...
+│   │   ├── product-service/...
+│   │   ├── shipping-service/...
+│   │   └── user-service/...
+│   │
 │   └── kustomization.yaml
+│
 ├── overlays/
+│   └── local/
+│       ├── ingress-backend.yaml
+│       ├── ingress-frontend.yaml
+│       ├── ingress.yaml (deprecated)
+│       └── kustomization.yaml
+│
 ├── .gitignore
 ├── cookies.txt
 └── LICENSE
